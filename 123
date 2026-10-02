@@ -1,0 +1,61 @@
+using System;
+
+class Program
+{
+    static char[] board = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    static char currentPlayer = 'X';
+
+    static void Main()
+    {
+        DrawBoard();
+
+        Console.WriteLine("Ход игрока " + currentPlayer);
+        MakeMove();
+
+        DrawBoard();
+    }
+
+    // Первая функция: отображение игрового поля
+    static void DrawBoard()
+    {
+        Console.WriteLine("=== КРЕСТИКИ-НОЛИКИ ===");
+        Console.WriteLine();
+
+        Console.WriteLine(" " + board[0] + " | " + board[1] + " | " + board[2]);
+        Console.WriteLine("---+---+---");
+        Console.WriteLine(" " + board[3] + " | " + board[4] + " | " + board[5]);
+        Console.WriteLine("---+---+---");
+        Console.WriteLine(" " + board[6] + " | " + board[7] + " | " + board[8]);
+    }
+
+    // Вторая функция: ввод и проверка хода
+    static void MakeMove()
+    {
+        while (true)
+        {
+            Console.Write("Введите номер клетки (1-9): ");
+            string input = Console.ReadLine();
+
+            if (!int.TryParse(input, out int position))
+            {
+                Console.WriteLine("Ошибка! Введите число.");
+                continue;
+            }
+
+            if (position < 1 || position > 9)
+            {
+                Console.WriteLine("Ошибка! Введите число от 1 до 9.");
+                continue;
+            }
+
+            if (board[position - 1] == 'X' || board[position - 1] == 'O')
+            {
+                Console.WriteLine("Эта клетка уже занята!");
+                continue;
+            }
+
+            board[position - 1] = currentPlayer;
+            break;
+        }
+    }
+}
